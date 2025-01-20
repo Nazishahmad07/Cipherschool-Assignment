@@ -1,0 +1,29 @@
+
+    #include <iostream>
+    using namespace std;
+    class Animal{
+        public:
+        virtual void sound(){
+            cout<<"Animal Sound";
+        }
+    };
+    class Dog:public Animal{
+        public:
+        void sound(){
+            cout<<"Bark";
+        }
+    };
+    class Cat:public Animal{
+        public:
+        void sound(){
+            cout<<"Meow";
+        }
+    };
+    
+    int main() {
+        Dog obj;
+        obj.sound();
+        Cat obj2;
+        obj2.sound();
+        return 0;
+    }
