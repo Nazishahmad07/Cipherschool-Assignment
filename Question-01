@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct Student{
+    string Name;
+    int RollNo;
+    float Marks[3];
+};
+int main(){
+    Student* student=new Student;
+    cout<<"Enter the Name of Student";
+    getline(cin,student->Name);
+    cout<<"Enter Roll No of the student";
+    cin>>student->RollNo;
+    cout<<"Enter Marks of Student in 3 subject ";
+    for(int i=0;i<3;i++){
+        cin>>student->Marks[i];
+    }
+    float sum=0;
+    for(int i=0;i<3;i++){
+        sum+=student->Marks[i];
+    }
+    float avg=sum/3;
+    cout<<"Name "<<student->Name<<endl;
+    cout<<"Roll No "<<student->RollNo<<endl;
+    cout<<"Marks "<<avg;
+}
