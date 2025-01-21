@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+long long minimumTime(vector<int>& time, int totalTrips) {
+    // Function to calculate total trips possible in a given time
+    auto trips_in_time = [&](long long mid) {
+        long long trips = 0;
+        for (int t : time) {
+            trips += mid / t;
+        }
+        return trips;
+    };
+
+    // Binary search range
+    long long low = 1;
+    long long high = *min_element(time.begin(), time.end()) * (long long)totalTrips;
+    long long result = high;
+
+    while (low <= high) {
+        long long mid = low + (high - low) / 2;
+        if (trips_in_time(mid) >= totalTrips) {
+            result = mid; // Mid is a valid solution, try for a smaller time
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    // Test cases
+    vector<int> time1 = {1, 2, 3};
+    int totalTrips1 = 5;
+    cout << minimumTime(time1, totalTrips1) << endl; // Output: 3
+
+    vector<int> time2 = {2};
+    int totalTrips2 = 1;
+    cout << minimumTime(time2, totalTrips2) << endl; // Output: 2
+
+    return 0;
+}
