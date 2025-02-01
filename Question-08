@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int getMaxLen(const vector<string>& arr) {
+    return arr[0].length();
+}
+
+void countingSort(vector<string>& arr, int size, int pos) {
+    vector<string> output(size);
+    int count[26] = {0};
+    
+    for (int i = 0; i < size; i++) {
+        count[arr[i][pos] - 'a']++;
+    }
+    
+    for (int i = 1; i < 26; i++) {
+        count[i] += count[i - 1];
+    }
+    
+    for (int i = size - 1; i >= 0; i--) {
+        output[count[arr[i][pos] - 'a'] - 1] = arr[i];
+        count[arr[i][pos] - 'a']--;
+    }
+    
+    for (int i = 0; i < size; i++) {
+        arr[i] = output[i];
+    }
+}
+
+void radixSort(vector<string>& arr) {
+    int maxLen = getMaxLen(arr);
+    for (int pos = maxLen - 1; pos >= 0; pos--) {
+        countingSort(arr, arr.size(), pos);
+    }
+}
+
+int main() {
+    int N = 5;
+    vector<string> arr = {"cat", "bat", "rat", "car", "bar"};
+    
+    radixSort(arr);
+    
+    cout << "Sorted Array: [";
+    for (size_t i = 0; i < arr.size(); i++) {
+        cout << "\"" << arr[i] << "\"";
+        if (i < arr.size() - 1) cout << ", ";
+    }
+    cout << "]" << endl;
+    
+    return 0;
+}
